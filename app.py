@@ -11,7 +11,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import os
 import signal
 import sys
 from types import FrameType
@@ -50,8 +50,10 @@ if __name__ == "__main__":
 
     # handles Ctrl-C termination
     signal.signal(signal.SIGINT, shutdown_handler)
-
-    app.run(host="localhost", port=8080, debug=True)
+    bindaddr = "localhost"
+    if os.getenv('BINDADDR'):
+      bindaddr=os.getenv('BINDADDR') 
+    app.run(host=bindaddr, port=8080, debug=True)
 else:
     # handles Cloud Run container termination
     signal.signal(signal.SIGTERM, shutdown_handler)
