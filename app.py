@@ -24,8 +24,9 @@ app = Flask(__name__)
 
 
 @app.route("/") 
-def hello(): 
-    return render_template('index.html')
+def index():
+    message = "It's running!"
+    return render_template('index.html', message=message)
 
 
 def shutdown_handler(signal_int: int, frame: FrameType) -> None:
